@@ -24,6 +24,8 @@ var currentQuestion = 0;
 var score = 0;
 var finalScore = 0;
 var userInitials = "";
+var hsTotal = 5;
+var highScoresBox = document.createElement("section");
 
 // Append Elements
 document.body.appendChild(header);
@@ -39,7 +41,7 @@ answersBox.appendChild(answerA);
 answersBox.appendChild(answerB);
 answersBox.appendChild(answerC);
 answersBox.appendChild(answerD);
-main.appendChild(startBtn);
+home.appendChild(startBtn);
 
 // Test for Proper Nesting
 console.log(document.body.children);
@@ -148,10 +150,14 @@ var quizQuestions = [
     }
 ]
 console.log(Array.from(quizQuestions));
+// Array for Highscores
+var hsArray = [];
 
 // Functions
     // Start Quiz
 function startQuiz() {
+    score = 0;
+    currentQuestion = 0;
     countDown();
     renderQuestion();
 }
@@ -204,6 +210,7 @@ function endGame() {
     // console.log("Final Score: " + finalScore);
 
     endHeader.textContent = "You got " + score + "/5 questions correct! That means your total score was a " + (score * 20) + ".";
+
     endText.textContent = "Enter your initials below to record your score: ";
     initialsBtn.textContent = "Submit";
 
@@ -218,21 +225,34 @@ function storeScore() {
     var userInitials = initialsInput.value;
     console.log("Initials: " + userInitials);
     localStorage.setItem(userInitials, finalScore);
+    hsArray.push(userInitials + " - " + finalScore);
+    console.log(hsArray);
 }
 
 // Show Highscores
 function showHighScores() {
-
+    for (let i = 0; i < hsArray.length; i++) {
+        highScoresBox.innerHTML += hsArray[i];
+    hsBtn.remove();
+    endHeader.remove();
+    endText.remove();
+    main.appendChild(highScoresBox);
+}; 
 }
 
 // Clear Highscores
 function clearHighScores() {
-
+    localStorage.clear();
 }
 
 // Return to Start
 function returnHome() {
-    
+    highScoresBox.remove();
+    endHeader.remove();
+    endText.remove();
+    returnBtn.remove();
+    hsBtn.remove();
+    main.appendChild(home);
 }
 
 function afterInitials() {
@@ -249,17 +269,21 @@ function afterInitials() {
 // Event Listeners
     // Start Button
 startBtn.addEventListener("click", function(){
-    homeHeader.style.display = "none";
-    homeDescr.style.display = "none";
-    startBtn.style.display = "none";
+    home.remove();
     startQuiz();
 });
     // Highscores Button
-hsBtn.addEventListener("click", showHighScores());
+hsBtn.addEventListener("click", function(){
+    showHighScores()
+});
     // Return Button
-returnBtn.addEventListener("click", returnHome());
+returnBtn.addEventListener("click", function() {
+    returnHome()
+});
     // Clear Highscores Button
-clearBtn.addEventListener("click", clearHighScores());
+clearBtn.addEventListener("click", function() {
+    clearHighScores()
+});
 
 answerA.addEventListener("click", function(){
     var userChoice = "a";
@@ -318,8 +342,8 @@ answerD.addEventListener("click", function(){
 })
 
 initialsBtn.addEventListener("click", function(){
-    initialsInput.style.display = "none";
-    initialsBtn.style.display = "none";
+    initialsInput.remove();
+    initialsBtn.remove();
     storeScore();
     afterInitials();
 })
