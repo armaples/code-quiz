@@ -20,6 +20,7 @@ var startBtn = document.createElement("button");
 var hsBtn = document.createElement("button");
 var returnBtn = document.createElement("button");
 var clearBtn = document.createElement("button");
+var hsHeader = document.createElement("h1");
 var currentQuestion = 0;
 var score = 0;
 var finalScore = 0;
@@ -44,7 +45,7 @@ answersBox.appendChild(answerC);
 answersBox.appendChild(answerD);
 home.appendChild(startBtn);
 
-// Test for Proper Nesting
+// Test for Proper Element Nesting
 console.log(document.body.children);
 console.log(main.children);
 console.log(header.children);
@@ -53,36 +54,45 @@ console.log(header.children);
 //// Header
 hsLink.textContent = "View Highscores";
 hsLink.href = "#";
-
 timerArea.textContent = "Time: 60";
+
+//// Main
 startBtn.textContent = "Start";
 homeHeader.textContent = "Coding Quiz";
 homeDescr.textContent = "Challenge your coding skills by answering each of the 5 questions given -- press 'Start' to begin!";
 returnBtn.textContent = "Return";
 hsBtn.textContent = "Show Highscores";
 
-//// Main
-
-
 //Element Styling
 //// Header
-header.style.minWidth = "500px";
-header.style.maxWidth = "700px";
+document.body.style.display = "flex";
+document.body.style.flexDirection = "column";
+document.body.style.justifyContent = "center";
+document.body.style.alignItems = "center";
+document.body.style.fontFamily = "Poppins, Helvetica, sans-serif"
+document.body.style.color = "#5D2A42";
+header.style.color = "#FFF9EC";
+header.style.width = "500px";
 header.style.display = "flex";
 header.style.justifyContent = "space-between";
 header.style.alignItems = "center";
-header.style.backgroundColor = "pink";
+header.style.backgroundColor = "#FB6376";
 header.style.paddingLeft = "30px";
 header.style.paddingRight = "30px";
-header.style.fontFamily = "Helvetica, sans-serif"
+homeHeader.style.fontFamily = "Titan One";
+homeHeader.style.fontSize = "30px";
+homeHeader.style.color = "#FFF9EC";
+homeHeader.style.letterSpacing = "2px";
 
 //// Main
-main.style.minWidth = "500px";
-main.style.maxWidth = "700px";
-main.style.backgroundColor = "lightpink";
+main.style.width = "500px";
+main.style.backgroundColor = "#FCB1A6";
 main.style.padding = "30px";
 main.style.textAlign = "center";
 questionsBox.style.display = "none";
+questionsBox.style.fontSize = "30px";
+questionsBox.style.color = "#FFF9EC";
+questionsBox.style.letterSpacing = "2px";
 answersBox.style.display = "none";
 answersBox.style.listStyleType = "none";
 answersBox.style.padding = "0px";
@@ -96,12 +106,42 @@ answerA.style.flex = "45%";
 answerB.style.flex = "45%";
 answerC.style.flex = "45%";
 answerD.style.flex = "45%";
-initialsBtn.style.margin = "5px";
 highScoresBox.style.display = "flex";
 highScoresBox.style.flexDirection = "column";
 highScoresBox.style.justifyContent = "center";
 highScoresBox.style.alignItems = "center";
 returnBtn.style.margin = "5px";
+endHeader.style.fontFamily = "Titan One";
+endHeader.style.fontSize = "30px";
+endHeader.style.color = "#FFF9EC";
+endHeader.style.letterSpacing = "2px";
+initialsBtn.style.color = "#FFF9EC";
+initialsBtn.style.margin = "5px";
+initialsBtn.style.backgroundColor = "#FB6376";
+initialsBtn.style.borderColor = "#FFF9EC";
+startBtn.style.color = "#FFF9EC";
+startBtn.style.backgroundColor = "#FB6376";
+startBtn.style.borderColor = "#FFF9EC";
+hsBtn.style.color = "#FFF9EC";
+hsBtn.style.margin = "5px";
+hsBtn.style.backgroundColor = "#FB6376";
+hsBtn.style.borderColor = "#FFF9EC";
+returnBtn.style.color = "#FFF9EC";
+returnBtn.style.margin = "5px";
+returnBtn.style.backgroundColor = "#FB6376";
+returnBtn.style.borderColor = "#FFF9EC";
+answerA.style.color = "#FFF9EC";
+answerA.style.backgroundColor = "#FB6376";
+answerA.style.borderColor = "#FFF9EC";
+answerB.style.color = "#FFF9EC";
+answerB.style.backgroundColor = "#FB6376";
+answerB.style.borderColor = "#FFF9EC";
+answerC.style.color = "#FFF9EC";
+answerC.style.backgroundColor = "#FB6376";
+answerC.style.borderColor = "#FFF9EC";
+answerD.style.color = "#FFF9EC";
+answerD.style.backgroundColor = "#FB6376";
+answerD.style.borderColor = "#FFF9EC";
 
 // Arrays
 //// Questions & Answers
@@ -229,7 +269,6 @@ function endGame() {
 function storeScore() {
     var finalScore = (score * 20);
     console.log("Final Score: " + finalScore);
-
     var userInitials = initialsInput.value;
     console.log("Initials: " + userInitials);
     localStorage.setItem(JSON.stringify(userInitials), JSON.stringify(finalScore));
@@ -240,6 +279,7 @@ function storeScore() {
 
 // Show Highscores
 function showHighScores() {
+    console.log(userInitials);
     hsBtn.remove();
     endHeader.remove();
     endText.remove();
