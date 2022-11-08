@@ -216,9 +216,12 @@ function startQuiz() {
 }
 
 function renderQuestion() {
+    main.appendChild(questionsBox);
+    main.appendChild(answersBox);
     questionsBox.style.display = "block";
     answersBox.style.display = "flex";
     answersBox.style.justifyContent = "space-around";
+
 
     questionsBox.textContent = quizQuestions[currentQuestion].question;
     answerA.textContent = "A: " + quizQuestions[currentQuestion].answers.a;
@@ -241,12 +244,15 @@ function next() {
 // Timer
 
 function countDown() {
-    var sec = 60;
+    var sec = 30;
     var timer = setInterval(function() {
         timerArea.innerHTML='Time: ' + sec;
         sec--;
         if (sec < 0) {
             clearInterval(timer);
+            answersBox.remove();
+            questionsBox.textContent = "Time's Up!"
+            questionsBox.appendChild(returnBtn);
         } else if (currentQuestion >= 5) {
             clearInterval(timer);
         }
@@ -307,6 +313,8 @@ function returnHome() {
     endText.remove();
     returnBtn.remove();
     hsBtn.remove();
+    questionsBox.remove();
+    answersBox.remove();
     main.appendChild(home);
 }
 
