@@ -30,6 +30,7 @@ var highScoresBox = document.createElement("section");
 // Append Elements
 document.body.appendChild(header);
 header.appendChild(hsLink);
+// header.appendChild(hsBtn);
 header.appendChild(timerArea);
 document.body.appendChild(main);
 main.appendChild(home);
@@ -51,12 +52,14 @@ console.log(header.children);
 // Element Content
 //// Header
 hsLink.textContent = "View Highscores";
-hsLink.href = "https://google.com";
+hsLink.href = "#";
+
 timerArea.textContent = "Time: 60";
 startBtn.textContent = "Start";
 homeHeader.textContent = "Coding Quiz";
 homeDescr.textContent = "Challenge your coding skills by answering each of the 5 questions given -- press 'Start' to begin!";
-
+returnBtn.textContent = "Return";
+hsBtn.textContent = "Show Highscores";
 
 //// Main
 
@@ -94,59 +97,64 @@ answerB.style.flex = "45%";
 answerC.style.flex = "45%";
 answerD.style.flex = "45%";
 initialsBtn.style.margin = "5px";
+highScoresBox.style.display = "flex";
+highScoresBox.style.flexDirection = "column";
+highScoresBox.style.justifyContent = "center";
+highScoresBox.style.alignItems = "center";
+returnBtn.style.margin = "5px";
 
 // Arrays
 //// Questions & Answers
 var quizQuestions = [
     { 
-        question: "Question1",
+        question: "What does HTML stand for?",
         answers: {
-            a: "Answer1", 
-            b: "Answer1",
-            c: "Answer1",
-            d: "Answer1"
+            a: "Helpful Text Monitors Loading", 
+            b: "Hyper Text Markup Language",
+            c: "Holy Trees Make Lists",
+            d: "Hyper Text Makeup Language"
+        },
+        correctAnswer: "b"
+    },
+    { 
+        question: "Which of the following is NOT an example of HTML semantic language?",
+        answers: {
+            a: "Main", 
+            b: "Section",
+            c: "Span",
+            d: "Navbar"
+        },
+        correctAnswer: "c"
+    },
+    { 
+        question: "What order does the CSS Box Model follow (from outside to inside)?",
+        answers: {
+            a: "Margin, Border, Padding, Content", 
+            b: "Content, Padding, Border, Margin",
+            c: "Margin, Padding, Border, Content",
+            d: "Padding, Border, Margin, Content"
         },
         correctAnswer: "a"
     },
     { 
-        question: "Question2",
+        question: "Which of the following are operators utilized by JavaScript?",
         answers: {
-            a: "Answer2", 
-            b: "Answer2",
-            c: "Answer2",
-            d: "Answer2"
+            a: "+", 
+            b: "-",
+            c: "=",
+            d: "All of the Above"
         },
-        correctAnswer: "a"
+        correctAnswer: "d"
     },
     { 
-        question: "Question3",
+        question: "Which of the following can only have a value of true or false?",
         answers: {
-            a: "Answer3", 
-            b: "Answer3",
-            c: "Answer3",
-            d: "Answer3"
+            a: "Strings", 
+            b: "Operators",
+            c: "Booleans",
+            d: "Numbers"
         },
-        correctAnswer: "b"
-    },
-    { 
-        question: "Question4",
-        answers: {
-            a: "Answer4", 
-            b: "Answer4",
-            c: "Answer4",
-            d: "Answer4"
-        },
-        correctAnswer: "b"
-    },
-    { 
-        question: "Question5",
-        answers: {
-            a: "Answer5", 
-            b: "Answer5",
-            c: "Answer5",
-            d: "Answer5"
-        },
-        correctAnswer: "b"
+        correctAnswer: "c"
     }
 ]
 console.log(Array.from(quizQuestions));
@@ -224,20 +232,21 @@ function storeScore() {
 
     var userInitials = initialsInput.value;
     console.log("Initials: " + userInitials);
-    localStorage.setItem(userInitials, finalScore);
-    hsArray.push(userInitials + " - " + finalScore);
+    localStorage.setItem(JSON.stringify(userInitials), JSON.stringify(finalScore));
+    var gameResult = "Player: " + userInitials + " | Score: " + finalScore;
+    hsArray.push(gameResult);
     console.log(hsArray);
 }
 
 // Show Highscores
 function showHighScores() {
-    for (let i = 0; i < hsArray.length; i++) {
-        highScoresBox.innerHTML += hsArray[i];
     hsBtn.remove();
     endHeader.remove();
     endText.remove();
+    returnBtn.remove();
     main.appendChild(highScoresBox);
-}; 
+    highScoresBox.innerHTML = hsArray.join('<br>');
+    highScoresBox.appendChild(returnBtn);
 }
 
 // Clear Highscores
@@ -261,9 +270,6 @@ function afterInitials() {
     
     main.appendChild(returnBtn);
     main.appendChild(hsBtn);
-
-    returnBtn.textContent = "Return";
-    hsBtn.textContent = "Show Highscores";
 }
 
 // Event Listeners
@@ -276,6 +282,12 @@ startBtn.addEventListener("click", function(){
 hsBtn.addEventListener("click", function(){
     showHighScores()
 });
+
+hsLink.addEventListener("click", function(){
+    home.remove();
+    showHighScores()
+});
+
     // Return Button
 returnBtn.addEventListener("click", function() {
     returnHome()
