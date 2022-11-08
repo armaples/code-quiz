@@ -54,7 +54,7 @@ console.log(header.children);
 //// Header
 hsLink.textContent = "View Highscores";
 hsLink.href = "#";
-timerArea.textContent = "Time: 60";
+timerArea.textContent = "Time: 30";
 
 //// Main
 startBtn.textContent = "Start";
