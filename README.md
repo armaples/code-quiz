@@ -28,6 +28,7 @@ This project was intended to create a basic quiz on coding that would log the in
 ## Known Issues
 
 - At the moment, the localStorage does not save on refresh; so the view highscores only works for the current session. Once the page is refreshed, the highscores are refreshed. 
+- The clear button on the Highscores page does not clear the data.
 
 ## Languages Used
 

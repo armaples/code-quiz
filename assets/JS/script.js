@@ -62,6 +62,7 @@ homeHeader.textContent = "Coding Quiz";
 homeDescr.textContent = "Challenge your coding skills by answering each of the 5 questions given -- press 'Start' to begin!";
 returnBtn.textContent = "Return";
 hsBtn.textContent = "Show Highscores";
+clearBtn.textContent = "Clear Highscores";
 
 //Element Styling
 //// Header
@@ -119,6 +120,10 @@ initialsBtn.style.color = "#FFF9EC";
 initialsBtn.style.margin = "5px";
 initialsBtn.style.backgroundColor = "#FB6376";
 initialsBtn.style.borderColor = "#FFF9EC";
+clearBtn.style.color = "#FFF9EC";
+clearBtn.style.margin = "5px";
+clearBtn.style.backgroundColor = "#FB6376";
+clearBtn.style.borderColor = "#FFF9EC";
 startBtn.style.color = "#FFF9EC";
 startBtn.style.backgroundColor = "#FB6376";
 startBtn.style.borderColor = "#FFF9EC";
@@ -287,6 +292,7 @@ function showHighScores() {
     main.appendChild(highScoresBox);
     highScoresBox.innerHTML = hsArray.join('<br>');
     highScoresBox.appendChild(returnBtn);
+    highScoresBox.appendChild(clearBtn);
 }
 
 // Clear Highscores
